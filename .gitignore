@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.spec
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Environment files (keep .example)
+.env
+!.env.example
+
+# Model weights — use Git LFS or manual download
+model/best.pt
+model/last.pt
+model/*.pt
+
+# Logs
+backend/logs/*.log
+backend/logs/*.jsonl
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Training artifacts (large — don't commit)
+runs/
+*.cache
+datasets/
+*.zip
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Uploads / temp
+uploads/
+tmp/
+*.tmp

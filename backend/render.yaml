@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: road-damage-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: MODEL_PATH
+        value: ./model/best.pt
+      - key: CONF_THRESHOLD
+        value: "0.25"
+      - key: IOU_THRESHOLD
+        value: "0.45"
+      - key: MAX_IMAGE_SIZE_MB
+        value: "10.0"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+    disk:
+      name: model-weights
+      mountPath: /opt/render/project/src/model
+      sizeGB: 1

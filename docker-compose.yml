@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: road_damage_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./model:/app/model:ro       # Mount trained model (read-only)
+      - ./backend/logs:/app/logs    # Persist logs
+    environment:
+      MODEL_PATH: /app/model/best.pt
+      CONF_THRESHOLD: "0.25"
+      IOU_THRESHOLD: "0.45"
+      MAX_IMAGE_SIZE_MB: "10.0"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Uncomment to serve frontend via nginx in production
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: road_damage_frontend
+  #   ports:
+  #     - "3000:80"
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     VITE_API_URL: http://backend:8000
+
+networks:
+  default:
+    name: road_damage_net
