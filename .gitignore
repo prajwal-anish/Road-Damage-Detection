@@ -45,8 +45,8 @@ frontend/.vite/
 Thumbs.db
 
 # Jupyter
-.ipynb_checkpoints/
-*.ipynb
+# .ipynb_checkpoints/
+# *.ipynb
 
 # Training artifacts (large — don't commit)
 runs/
