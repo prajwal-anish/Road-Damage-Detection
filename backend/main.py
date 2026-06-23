@@ -98,12 +98,11 @@ def load_model() -> YOLO:
         
         def load_with_fallback(f, *args, **kwargs):
             try:
-                # Try with weights_only=True first (secure mode)
+                kwargs.pop("weights_only", None)
                 return original_load(f, *args, weights_only=True, **kwargs)
             except Exception:
-                # Fall back to weights_only=False for this trusted model
-                logger.warning("Model requires weights_only=False due to complex serialization")
-                return original_load(f, *args, weights_only=False, **kwargs)
+                kwargs.pop("weights_only", None)
+            return original_load(f, *args, weights_only=False, **kwargs)
         
         torch.load = load_with_fallback
         try:
